@@ -26,15 +26,14 @@ public class Cart {
     }
 
     public void add(Product product) {
-        CartItem cartItem = new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice());
-        if (!items.contains(cartItem)) {
-            items.add(cartItem);
-        } else {
-            int i = items.indexOf(cartItem);
-            int quantity = items.get(i).getQuantity() + 1;
-            items.get(i).setQuantity(quantity);
-            items.get(i).setPrice(quantity * items.get(i).getPrice());
+        for (CartItem c : items) {
+            if(c.getProductId().equals(product.getId())){
+                c.setQuantity(c.getQuantity() + 1);
+                recalculate();
+                return;
+            }
         }
+        items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
         recalculate();
     }
 
@@ -44,23 +43,17 @@ public class Cart {
             totalPrice += item.getPrice();
         }
     }
-
     public void remove(Product product) {
-        CartItem cartItem =
-                new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice());
-        if (!items.contains(cartItem)) {
-            return;
-        } else {
-            int i = items.indexOf(cartItem);
-            int quantity = items.get(i).getQuantity();
-            if(quantity > 1){
-                quantity = items.get(i).getQuantity() - 1;
-                items.get(i).setQuantity(quantity);
-                items.get(i).setPrice(quantity * items.get(i).getPrice());
-            } else {
-                items.remove(cartItem);
+        for (CartItem c : items) {
+            if(c.getProductId().equals(product.getId())){
+                if(c.getQuantity() == 1){
+                    items.remove(c);
+                    recalculate();
+                }
+                c.setQuantity(c.getQuantity() - 1);
+                recalculate();
+                return;
             }
         }
-        recalculate();
     }
 }
