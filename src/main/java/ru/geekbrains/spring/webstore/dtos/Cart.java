@@ -36,24 +36,25 @@ public class Cart {
         items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
         recalculate();
     }
+    public void remove(Product product) {
+
+        items.removeIf(cartItem -> cartItem.getProductId().equals(product.getId()) && cartItem.getQuantity() == 1);
+
+        for (CartItem c : items) {
+            if(c.getProductId().equals(product.getId())){
+                c.setQuantity(c.getQuantity() - 1);
+                recalculate();
+                return;
+            }
+        }
+
+        recalculate();
+    }
 
     private void recalculate() {
         totalPrice = 0;
         for (CartItem item : items) {
             totalPrice += item.getPrice();
-        }
-    }
-    public void remove(Product product) {
-        for (CartItem c : items) {
-            if(c.getProductId().equals(product.getId())){
-                if(c.getQuantity() == 1){
-                    items.remove(c);
-                    recalculate();
-                }
-                c.setQuantity(c.getQuantity() - 1);
-                recalculate();
-                return;
-            }
         }
     }
 }
