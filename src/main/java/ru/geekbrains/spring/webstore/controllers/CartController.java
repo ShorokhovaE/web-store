@@ -32,5 +32,10 @@ public class CartController {
         cartService.remove(id);
     }
 
+    @GetMapping("/clear")
+    public void clearCart(){
+        cartService.clear();
+    }
+
 
 }

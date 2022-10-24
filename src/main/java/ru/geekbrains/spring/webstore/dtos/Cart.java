@@ -47,7 +47,11 @@ public class Cart {
                 return;
             }
         }
+        recalculate();
+    }
 
+    public void clear(){
+        items.clear();
         recalculate();
     }
 

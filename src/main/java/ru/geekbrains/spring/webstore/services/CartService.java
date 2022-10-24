@@ -40,6 +40,10 @@ public class CartService {
         tempCart.remove(product);
     }
 
+    public void clear(){
+        tempCart.clear();
+    }
+
     public void createNewOrder() {
         orderService.add(tempCart.getItems(), tempCart.getTotalPrice());
     }
