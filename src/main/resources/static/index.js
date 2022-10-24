@@ -42,6 +42,18 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
         });
     }
 
+    $scope.clearCart = function (){
+        $http.get('http://localhost:8189/store/api/v1/cart/clear').then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.removeItemFromCart = function (id) {
+        $http.get('http://localhost:8189/store/api/v1/cart/delete/' + id).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
     $scope.createNewOrder = function (){
         $http.get('http://localhost:8189/store/api/v1/cart/createOrder').then(function (response) {
             $scope.cart = response.data;

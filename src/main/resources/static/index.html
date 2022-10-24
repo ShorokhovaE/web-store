@@ -56,9 +56,15 @@
         <tr ng-repeat="item in cart.items">
             <td>{{item.productTitle}}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.pricePrProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
+            <td>{{item.pricePrProduct + ' x ' + item.quantity + ' = ' + item.price*item.quantity}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="removeFromCart(item.productId)">Удалить из корзины</button>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary" ng-click="removeFromCart(item.productId)">-</button>
+                    <button type="button" class="btn btn-primary" ng-click="addToCart(item.productId)">+</button>
+                    <button type="button" class="btn btn-primary" ng-click="removeItemFromCart(item.productId)">
+                        Очистить
+                    </button>
+                </div>
             </td>
         </tr>
         <tr>
@@ -68,7 +74,12 @@
         </tr>
         </tbody>
         <tr>
-            <button class="btn btn-primary" ng-click="createNewOrder">Оформить заказ</button>
+            <td>
+                <button class="btn btn-primary" ng-click="createNewOrder()">Оформить заказ</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="clearCart()">Очистить корзину</button>
+            </td>
         </tr>
     </table>
     <p></p>
@@ -76,10 +87,12 @@
     <p></p>
     <form class="row g-3" ng-submit="createNewProduct()">
         <div class="col-auto">
-            <input type="text" class="form-control" id="newProductTitle" ng-model="newProduct.title" placeholder="Название">
+            <input type="text" class="form-control" id="newProductTitle" ng-model="newProduct.title"
+                   placeholder="Название">
         </div>
         <div class="col-auto">
-            <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price" placeholder="Цена">
+            <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price"
+                   placeholder="Цена">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-3">Создать</button>
