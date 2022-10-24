@@ -44,6 +44,11 @@ public class CartService {
         tempCart.clear();
     }
 
+    public void removeItem(Long productId){
+        Product product = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        tempCart.removeItem(product);
+    }
+
     public void createNewOrder() {
         orderService.add(tempCart.getItems(), tempCart.getTotalPrice());
     }

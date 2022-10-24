@@ -37,5 +37,10 @@ public class CartController {
         cartService.clear();
     }
 
+    @GetMapping("/delete/{id}")
+    public void removeItem(@PathVariable Long id){
+        cartService.removeItem(id);
+    }
+
 
 }

@@ -55,10 +55,15 @@ public class Cart {
         recalculate();
     }
 
+    public void removeItem(Product product){
+        items.removeIf(cartItem -> cartItem.getProductId().equals(product.getId()));
+        recalculate();
+    }
+
     private void recalculate() {
         totalPrice = 0;
         for (CartItem item : items) {
-            totalPrice += item.getPrice();
+            totalPrice += item.getPrice()*item.getQuantity();
         }
     }
 }
