@@ -56,10 +56,11 @@
         <tr ng-repeat="item in cart.items">
             <td>{{item.productTitle}}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.pricePrProduct + ' x ' + item.quantity + ' = ' + item.price*item.quantity}}</td>
+            <td>{{item.pricePrProduct + item.price*item.quantity}}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-primary" ng-click="removeFromCart(item.productId)">-</button>
+                    <button type="button" class="btn btn-primary">{{item.quantity}}</button>
                     <button type="button" class="btn btn-primary" ng-click="addToCart(item.productId)">+</button>
                     <button type="button" class="btn btn-primary" ng-click="removeItemFromCart(item.productId)">
                         Очистить
