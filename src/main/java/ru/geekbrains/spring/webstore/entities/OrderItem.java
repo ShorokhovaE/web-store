@@ -3,13 +3,17 @@ package ru.geekbrains.spring.webstore.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "myOrder")
+@Table(name = "order_items")
 @NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
 
     @Id
@@ -17,31 +21,36 @@ public class OrderItem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "productId")
-    private Long productId;
-
-    @Column(name = "productTitle")
-    private String productTitle;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "pricePerProduct")
+    @Column(name = "price_per_product")
     private int pricePerProduct;
 
     @Column(name = "price")
     private int price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public OrderItem(Long productId, String productTitle, int quantity, int pricePerProduct, int price, Order order) {
-        this.productId = productId;
-        this.productTitle = productTitle;
+    public OrderItem(Product product, int quantity, int pricePerProduct, int price, Order order) {
+        this.product = product;
         this.quantity = quantity;
         this.pricePerProduct = pricePerProduct;
         this.price = price;
         this.order = order;
     }
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

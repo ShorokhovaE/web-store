@@ -1,8 +1,6 @@
-package ru.geekbrains.spring.webstore.dtos;
+package ru.geekbrains.spring.webstore.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.spring.webstore.entities.Product;
 
@@ -26,9 +24,9 @@ public class Cart {
     }
 
     public void add(Product product) {
-        for (CartItem c : items) {
-            if(c.getProductId().equals(product.getId())){
-                c.setQuantity(c.getQuantity() + 1);
+        for (CartItem item : items) {
+            if(item.getProductId().equals(product.getId())){
+                item.changeQuantity(1);
                 recalculate();
                 return;
             }
@@ -36,13 +34,13 @@ public class Cart {
         items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
         recalculate();
     }
-    public void remove(Product product) {
+    public void remove(Long productId) {
 
-        items.removeIf(cartItem -> cartItem.getProductId().equals(product.getId()) && cartItem.getQuantity() == 1);
+        items.removeIf(cartItem -> cartItem.getProductId().equals(productId) && cartItem.getQuantity() == 1);
 
-        for (CartItem c : items) {
-            if(c.getProductId().equals(product.getId())){
-                c.setQuantity(c.getQuantity() - 1);
+        for (CartItem item : items) {
+            if(item.getProductId().equals(productId)){
+                item.changeQuantity(- 1);
                 recalculate();
                 return;
             }
@@ -52,18 +50,18 @@ public class Cart {
 
     public void clear(){
         items.clear();
-        recalculate();
+        totalPrice = 0;
     }
 
-    public void removeItem(Product product){
-        items.removeIf(cartItem -> cartItem.getProductId().equals(product.getId()));
+    public void removeItem(Long productId){
+        items.removeIf(cartItem -> cartItem.getProductId().equals(productId));
         recalculate();
     }
 
     private void recalculate() {
         totalPrice = 0;
         for (CartItem item : items) {
-            totalPrice += item.getPrice()*item.getQuantity();
+            totalPrice += item.getPrice();
         }
     }
 }
