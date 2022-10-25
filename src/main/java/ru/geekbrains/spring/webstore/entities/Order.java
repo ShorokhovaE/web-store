@@ -1,21 +1,20 @@
 package ru.geekbrains.spring.webstore.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.geekbrains.spring.webstore.dtos.CartItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "orders")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -23,19 +22,14 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "totalPrice")
+    @Column(name = "total_price")
     private int totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "order")
     private List <OrderItem> items;
 
     @CreationTimestamp
@@ -45,5 +39,4 @@ public class Order {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }
