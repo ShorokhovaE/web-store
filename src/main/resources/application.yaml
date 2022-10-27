@@ -2,11 +2,10 @@ server:
   port: 8189
   servlet:
     context-path: /store
-
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:mydatabase;MODE=MySQL
+    url: jdbc:h2:mem:mydatabase;MODE=MYSQL
     username: sa
     password:
   jpa:
@@ -20,3 +19,6 @@ spring:
       settings:
         web-allow-others: false
 
+jwt:
+  secret: F65hgG#*FGF3r45&^SFertD345Sert%FDF#G345j234fguygwe54f87t*Tgf
+  lifetime: 36000000
