@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
@@ -31,6 +32,11 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         wsdl11Definition.setTargetNamespace("http://www.shorokhova.com/spring/ws/products");
         wsdl11Definition.setSchema(productsSchema);
         return wsdl11Definition;
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 
     @Bean
