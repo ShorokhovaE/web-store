@@ -12,18 +12,18 @@ public class CartServiceIntegration {
 
     private final WebClient cartServiceWebClient;
 
-    public CartDto getCurrentCart(String username) {
+    public CartDto getCurrentCart() {
 
         return cartServiceWebClient.get()
-                .uri("/api/v1/cart/" + username)
+                .uri("/api/v1/cart/")
                 .retrieve()
                 .bodyToMono(CartDto.class)
                 .block();
     }
 
-    public void clear(String username) {
+    public void clear() {
         cartServiceWebClient.get()
-                .uri("/api/v1/cart/clear" + username)
+                .uri("/api/v1/cart/clear")
                 .retrieve()
                 .toBodilessEntity()
                 .block();
