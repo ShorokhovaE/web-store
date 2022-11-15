@@ -3,34 +3,20 @@ package ru.geekbrains.store.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.store.api.OrderDto;
-import ru.geekbrains.store.api.OrderItemDto;
-import ru.geekbrains.store.api.ResourceNotFoundException;
-import ru.geekbrains.store.core.entities.User;
 import ru.geekbrains.store.core.services.OrderService;
-import ru.geekbrains.store.core.services.UserService;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class OrderController {
 
     private final OrderService orderService;
-    private final UserService userService;
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder (Principal principal) {
-
-        User user = userService.findByUsername(principal.getName())
-                .orElseThrow(() -> new ResourceNotFoundException("Юзер не найден"));
-
-//        orderService.create(user);
+    public void createOrder (@RequestHeader String username) {
+        orderService.createOrder(username);
     }
 
 //    @GetMapping

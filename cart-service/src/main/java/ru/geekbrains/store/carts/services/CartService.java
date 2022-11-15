@@ -26,22 +26,21 @@ public class CartService {
     }
 
     public void add(Long productId) {
-        ProductDto product = productServiceIntegration.getProductById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Не удается добавить продукт с id " + productId + " в корзину. Продукт не найден."));
+        ProductDto product = productServiceIntegration.getProductById(productId);
         tempCart.add(product);
     }
 
     public void remove(Long productId) {
-        productServiceIntegration.getProductById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        productServiceIntegration.getProductById(productId);
         tempCart.remove(productId);
     }
 
-    public void clear(){
+    public void clear() {
         tempCart.clear();
     }
 
-    public void removeItem(Long productId){
-        productServiceIntegration.getProductById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    public void removeItem(Long productId) {
+        productServiceIntegration.getProductById(productId);
         tempCart.removeItem(productId);
     }
 }
