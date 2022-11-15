@@ -28,8 +28,8 @@ public class OrderService {
         order.setItems(cartDto.getItems().stream().map(
                 cartItem -> new OrderItem(
                         productService.findById(cartItem.getProductId()).get(),
-                        cartItem.getPrice(),
                         cartItem.getQuantity(),
+                        cartItem.getPrice(),
                         cartItem.getPricePerProduct(),
                         order
                 )

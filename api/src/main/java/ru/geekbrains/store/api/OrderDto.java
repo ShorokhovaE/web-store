@@ -1,13 +1,14 @@
 package ru.geekbrains.store.api;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderDto {
 
     private Long id;
     private String username;
-    private int totalPrice;
+    private BigDecimal totalPrice;
     private List<OrderItemDto> itemDtos;
 
     public Long getId() {
@@ -18,7 +19,7 @@ public class OrderDto {
         return username;
     }
 
-    public int getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
@@ -34,7 +35,7 @@ public class OrderDto {
         this.username = username;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -42,7 +43,7 @@ public class OrderDto {
         this.itemDtos = itemDtos;
     }
 
-    public OrderDto(Long id, String username, int totalPrice, List<OrderItemDto> itemDtos) {
+    public OrderDto(Long id, String username, BigDecimal totalPrice, List<OrderItemDto> itemDtos) {
         this.id = id;
         this.username = username;
         this.totalPrice = totalPrice;

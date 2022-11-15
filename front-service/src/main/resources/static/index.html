@@ -51,6 +51,23 @@
     <p></p>
     <h3>Список товаров</h3>
     <p></p>
+    <div class="col-12 mt-3">
+        <form class="form-inline">
+            <div class="form-group mb-2 mr-2" ng-submit="loadProductsByFilter()">
+                <label class="sr-only">ProductMinCost filter</label>
+                <input id="navProductMinCostFilter" type="number" class="form-control"
+                       ng-model="product.productMinCostFilter" placeholder="Min cost filter">
+            </div>
+
+            <div class="form-group mb-2 mr-2">
+                <label class="sr-only">ProductMaxCost filter</label>
+                <input id="navProductMaxCostFilter" type="number" class="form-control"
+                       ng-model="product.productMaxCostFilter" placeholder="Max cost filter">
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>

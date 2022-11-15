@@ -30,6 +30,10 @@ angular.module('app', ['ngStorage']).controller('IndexController', function ($sc
             });
     }
 
+    // $scope.loadProductsByFilter = function (){
+    //     $http.get('http://localhost:5555/core/api/v1/products', $scope.products)
+    // }
+
 
     $scope.tryToLogout = function (){
         $scope.clearUser();

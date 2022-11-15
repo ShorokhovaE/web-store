@@ -1,14 +1,16 @@
 package ru.geekbrains.store.api;
 
+import java.math.BigDecimal;
+
 public class CreateNewProductDto {
     private String title;
-    private int price;
+    private BigDecimal price;
 
     public String getTitle() {
         return title;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -16,7 +18,7 @@ public class CreateNewProductDto {
         this.title = title;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

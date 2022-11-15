@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,16 +28,16 @@ public class OrderItem {
     private int quantity;
 
     @Column(name = "price_per_product")
-    private int pricePerProduct;
+    private BigDecimal pricePerProduct;
 
     @Column(name = "price")
-    private int price;
+    private BigDecimal price;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public OrderItem(Product product, int quantity, int pricePerProduct, int price, Order order) {
+    public OrderItem(Product product, int quantity, BigDecimal pricePerProduct, BigDecimal price, Order order) {
         this.product = product;
         this.quantity = quantity;
         this.pricePerProduct = pricePerProduct;
