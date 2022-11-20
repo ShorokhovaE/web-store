@@ -11,7 +11,8 @@ create table products
 insert into products (title, price)
 values ('Milk', 24.50),
        ('Bob', 34.50),
-       ('Nuts', 150.00);
+       ('Nuts', 150.00),
+       ('Bread', 200.00);
 
 
 
@@ -24,6 +25,14 @@ create table orders
     updated_at timestamp default current_timestamp,
     PRIMARY KEY (id)
 );
+
+insert into orders (username, total_price)
+values ('Bob', 600.50),
+       ('Bob', 125.50),
+       ('Mila', 150.00),
+       ('Tony', 200.00),
+       ('Billy', 200.00);
+
 
 
 create table order_items
