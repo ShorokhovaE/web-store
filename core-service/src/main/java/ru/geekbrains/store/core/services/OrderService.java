@@ -4,11 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.store.api.CartDto;
+import ru.geekbrains.store.core.repositories.OrderRepository;
 import ru.geekbrains.store.core.entities.Order;
 import ru.geekbrains.store.core.entities.OrderItem;
 import ru.geekbrains.store.core.integrations.CartServiceIntegration;
-import ru.geekbrains.store.core.repositories.OrderItemRepository;
-import ru.geekbrains.store.core.repositories.OrderRepository;
+
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +38,9 @@ public class OrderService {
         orderRepository.save(order);
         cartServiceIntegration.clear();
         return order;
+    }
+
+    public List<Order> findAll(){
+        return orderRepository.findAll();
     }
 }
