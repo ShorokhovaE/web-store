@@ -10,7 +10,23 @@ create table products
 
 insert into products (title, price)
 values ('Milk', 24.50),
-       ('Bob', 34.50),
+       ('Bobs', 15.50),
+       ('Bread', 22.00),
+       ('Water', 30.50),
+       ('Candy', 100.00),
+       ('Cheese', 250.50),
+       ('Milk1', 24.50),
+       ('Bobs1', 15.50),
+       ('Bread1', 22.00),
+       ('Water1', 30.50),
+       ('Candy1', 100.00),
+       ('Cheese1', 250.50),
+       ('Milk2', 24.50),
+       ('Bobs2', 15.50),
+       ('Bread2', 22.00),
+       ('Water2', 30.50),
+       ('Candy2', 100.00),
+       ('Cheese2', 250.50),
        ('Nuts', 150.00);
 
 

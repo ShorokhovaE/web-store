@@ -8,39 +8,46 @@ import ru.geekbrains.store.carts.integrations.ProductServiceIntegration;
 import ru.geekbrains.store.carts.model.Cart;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
 
     private final ProductServiceIntegration productServiceIntegration;
-    private Cart tempCart;
+    private HashMap<String, Cart> carts;
 
     @PostConstruct
     public void init() {
-        tempCart = new Cart();
+        carts = new HashMap<>();
     }
 
-    public Cart getCurrentCart() {
-        return tempCart;
+    public Cart getCurrentCart(String cartId) {
+        if(!carts.containsKey(cartId)){
+            carts.put(cartId, new Cart());
+        }
+        return carts.get(cartId);
     }
 
-    public void add(Long productId) {
+    public void add(String cartId, Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        tempCart.add(product);
+        if(!carts.containsKey(cartId)){
+            carts.put(cartId, new Cart());
+        }
+        carts.get(cartId).add(product);
     }
 
-    public void remove(Long productId) {
+    public void remove(String cartId, Long productId) {
         productServiceIntegration.getProductById(productId);
-        tempCart.remove(productId);
+        carts.get(cartId).remove(productId);
     }
 
-    public void clear() {
-        tempCart.clear();
+    public void clear(String cartId) {
+        carts.get(cartId).clear();
     }
 
-    public void removeItem(Long productId) {
+    public void removeItem(String cartId, Long productId) {
         productServiceIntegration.getProductById(productId);
-        tempCart.removeItem(productId);
+        carts.get(cartId).removeItem(productId);
     }
 }
