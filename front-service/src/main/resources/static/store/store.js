@@ -3,27 +3,27 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     const cartContextPath = 'http://localhost:5555/cart/';
 
 
-    $scope.loadProducts = function () {
-        $http.get(contextPath + 'api/v1/products').then(function (response) {
-            $scope.products = response.data;
-        });
-    };
-
-    // $scope.loadProducts = function (page = 1) {
-    //     $http({
-    //         url: contextPath + 'api/v1/products',
-    //         method: 'GET',
-    //         params: {
-    //             p: page,
-    //             title: $scope.filter ? $scope.filter.title : null,
-    //             min_price: $scope.filter ? $scope.filter.min_price : null,
-    //             max_price: $scope.filter ? $scope.filter.max_price : null
-    //         }
-    //     }).then(function (response) {
-    //         $scope.productsPage = response.data;
-    //         $scope.generatePagesList($scope.productsPage.totalPages);
+    // $scope.loadProducts = function () {
+    //     $http.get(contextPath + 'api/v1/products').then(function (response) {
+    //         $scope.products = response.data;
     //     });
     // };
+
+    $scope.loadProducts = function (page = 1) {
+        $http({
+            url: contextPath + 'api/v1/products',
+            method: 'GET',
+            params: {
+                p: page,
+                title: $scope.filter ? $scope.filter.title : null,
+                min_price: $scope.filter ? $scope.filter.min_price : null,
+                max_price: $scope.filter ? $scope.filter.max_price : null
+            }
+        }).then(function (response) {
+            $scope.products = response.data;
+            $scope.generatePagesList(5);
+        });
+    };
 
     // $scope.showProductInfo = function (product_id){
     //     $http.get(contextPath + 'api/v1/products/' + product_id).then(function (response) {
@@ -39,8 +39,8 @@ angular.module('market').controller('storeController', function ($scope, $http, 
 
     $scope.generatePagesList = function (totalPages) {
         out = [];
-        for (let i = 0; i < totalPages; i++) {
-            out.push(i + 1);
+        for (let i = 1; i < totalPages + 1; i++) {
+            out.push(i);
         }
         $scope.pagesList = out;
     }
