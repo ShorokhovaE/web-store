@@ -17,45 +17,46 @@ public class CartController {
     private final CartService cartService;
     private final CartConverter cartConverter;
 
-    @GetMapping("/generate_id")
-    public StringResponse generateGuestCartId() {
+    @GetMapping("/generate_uuid")
+    public StringResponse generateUuid() {
         return new StringResponse(UUID.randomUUID().toString());
     }
 
-    @GetMapping("/{guestCartId}")
-    public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String guestCartId) {
-        String currentCartId = selectCartId(username, guestCartId);
-        return cartConverter.entityToDto(cartService.getCurrentCart(currentCartId));
-    }
-    @GetMapping("/{guestCartId}/add/{id}")
-    public void addToCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String guestCartId, @PathVariable Long id) {
-        String currentCartId = selectCartId(username, guestCartId);
-        cartService.add(currentCartId, id);
+    @GetMapping("/{uuid}")
+    public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+        String targetUuid = getCartUuid(username, uuid);
+        return cartConverter.entityToDto(cartService.getCurrentCart(targetUuid));
     }
 
-    @GetMapping("/{guestCartId}/remove/{id}")
-    public void removeFromCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String guestCartId, @PathVariable Long id) {
-        String currentCartId = selectCartId(username, guestCartId);
-        cartService.remove(currentCartId, id);
+    @GetMapping("/{uuid}/add/{id}")
+    public void addToCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
+        String targetUuid = getCartUuid(username, uuid);
+        cartService.add(targetUuid, id);
     }
 
-    @GetMapping("/{guestCartId}/clear")
-    public void clearCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String guestCartId){
-        String currentCartId = selectCartId(username, guestCartId);
-        cartService.clear(currentCartId);
+    @GetMapping("/{uuid}/remove/{id}")
+    public void removeFromCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
+        String targetUuid = getCartUuid(username, uuid);
+        cartService.remove(targetUuid, id);
     }
 
-    @GetMapping("/{guestCartId}/delete/{id}")
-    public void removeItem(@RequestHeader(name = "username", required = false) String username, @PathVariable String guestCartId, @PathVariable Long id){
-        String currentCartId = selectCartId(username, guestCartId);
-        cartService.removeItem(currentCartId, id);
+    @GetMapping("/{uuid}/clear")
+    public void clearCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+        String targetUuid = getCartUuid(username, uuid);
+        cartService.clear(targetUuid);
     }
 
-    private String selectCartId(String username, String guestCartId) {
+    @GetMapping("/{uuid}/delete/{id}")
+    public void removeItem(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
+        String targetUuid = getCartUuid(username, uuid);
+        cartService.removeItem(targetUuid, id);
+    }
+
+    private String getCartUuid(String username, String uuid) {
         if (username != null) {
             return username;
         }
-        return guestCartId;
+        return uuid;
     }
 
 }
