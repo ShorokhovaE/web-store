@@ -40,7 +40,9 @@
                                 Log-in
                             </button>
                         </div>
-
+                <li class="nav-item" ng-show="!isLoggedIn()">
+                    <a class="nav-link" href="#!/registration">Регистрация</a>
+                </li>
                     </form>
                 </li>
                 <li class="nav-item" ng-show="isLoggedIn()" style="...">
@@ -59,6 +61,7 @@
     <script src="cart/cart.js"></script>
     <script src="orders/orders.js"></script>
     <script src="welcome/welcome.js"></script>
+    <script src="registration/registration.js"></script>
 
 </div>
 </body>

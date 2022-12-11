@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.store.api.AppError;
 import ru.geekbrains.store.api.JwtRequest;
 import ru.geekbrains.store.api.JwtResponse;
+import ru.geekbrains.store.api.RegistrationUserDto;
+import ru.geekbrains.store.auth.entities.Role;
+import ru.geekbrains.store.auth.entities.User;
 import ru.geekbrains.store.auth.services.UserService;
 import ru.geekbrains.store.auth.utils.JwtTokenUtil;
 
@@ -23,8 +26,8 @@ import ru.geekbrains.store.auth.utils.JwtTokenUtil;
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
@@ -38,22 +41,21 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-//    @PostMapping("/registration")
-//    public ResponseEntity<?> createAuthToken(@RequestBody RegistrationUserDto registrationUserDto) {
-//        if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
-//            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"), HttpStatus.BAD_REQUEST);
-//        }
-//        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
-//            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"), HttpStatus.BAD_REQUEST);
-//        }
-//        User user = new User();
-//        user.setEmail(registrationUserDto.getEmail());
-//        user.setUsername(registrationUserDto.getUsername());
-//        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-//        userService.createUser(user);
-//
-//        UserDetails userDetails = userService.loadUserByUsername(registrationUserDto.getUsername());
-//        String token = jwtTokenUtil.generateToken(userDetails);
-//        return ResponseEntity.ok(new JwtResponse(token));
-//    }
+    @PostMapping("/registration")
+    public ResponseEntity<?> createAuthToken(@RequestBody RegistrationUserDto registrationUserDto) {
+        if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"), HttpStatus.BAD_REQUEST);
+        }
+        User user = new User();
+        user.setUsername(registrationUserDto.getUsername());
+        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
+        userService.createUser(user);
+
+        UserDetails userDetails = userService.loadUserByUsername(registrationUserDto.getUsername());
+        String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
 }

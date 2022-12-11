@@ -51,11 +51,11 @@ public class OrderItemDto {
         this.price = price;
     }
 
-    public OrderItemDto(Long id, String productTitle, int quantity, BigDecimal pricePerProduct, BigDecimal price) {
-        this.id = id;
-        this.productTitle = productTitle;
-        this.quantity = quantity;
-        this.pricePerProduct = pricePerProduct;
-        this.price = price;
-    }
+//    public OrderItemDto(Long id, String productTitle, int quantity, BigDecimal pricePerProduct, BigDecimal price) {
+//        this.id = id;
+//        this.productTitle = productTitle;
+//        this.quantity = quantity;
+//        this.pricePerProduct = pricePerProduct;
+//        this.price = price;
+//    }
 }

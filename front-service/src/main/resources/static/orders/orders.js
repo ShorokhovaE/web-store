@@ -1,7 +1,8 @@
 angular.module('market').controller('ordersController', function ($scope, $http) {
+    const contextPath = 'http://localhost:5555/core/';
+
     $scope.loadOrders = function () {
-        $http.get('http://localhost:5555/core/api/v1/orders')
-            .then(function (response) {
+        $http.get(contextPath + 'api/v1/orders').then(function (response) {
                 $scope.orders = response.data;
             });
     };

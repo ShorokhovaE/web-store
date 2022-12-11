@@ -22,6 +22,10 @@
                 templateUrl: 'orders/orders.html',
                 controller: 'ordersController'
             })
+            .when('/registration', {
+                templateUrl: 'registration/registration.html',
+                controller: 'registrationController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -46,7 +50,7 @@
             }
         }
         if (!$localStorage.CartId) {
-            $http.get('http://localhost:5555/cart/api/v1/cart/generate_id')
+            $http.get('http://localhost:5555/cart/api/v1/cart/generate_uuid')
                 .then(function (response) {
                     $localStorage.CartId = response.data.value;
                 });

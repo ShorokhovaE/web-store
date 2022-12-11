@@ -17,7 +17,7 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     };
 
     $scope.createOrder = function () {
-        $http.post(coreContextPath + 'api/v1/orders/create').then(function (response) {
+        $http.post(coreContextPath + 'api/v1/orders').then(function (response) {
             $scope.loadCart();
         });
     }
