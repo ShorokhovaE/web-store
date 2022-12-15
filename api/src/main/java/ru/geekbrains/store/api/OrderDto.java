@@ -42,11 +42,4 @@ public class OrderDto {
     public void setItemDtos(List<OrderItemDto> itemDtos) {
         this.itemDtos = itemDtos;
     }
-
-//    public OrderDto(Long id, String username, BigDecimal totalPrice, List<OrderItemDto> itemDtos) {
-//        this.id = id;
-//        this.username = username;
-//        this.totalPrice = totalPrice;
-//        this.itemDtos = itemDtos;
-//    }
 }
