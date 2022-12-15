@@ -2,13 +2,6 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     const contextPath = 'http://localhost:5555/cart/';
     const coreContextPath = 'http://localhost:5555/core/';
 
-    // $scope.loadCart = function () {
-    //     $http.get(contextPath + 'api/v1/cart/')
-    //         .then(function (response) {
-    //             $scope.cart = response.data;
-    //         });
-    // };
-
     $scope.loadCart = function () {
         $http.get(contextPath + 'api/v1/cart/' + $localStorage.CartId)
             .then(function (response) {

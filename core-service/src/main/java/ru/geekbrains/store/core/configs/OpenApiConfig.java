@@ -12,7 +12,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("GeekBrains - Winter Market - Продуктовый сервис")
+                                .title("GeekBrains - Web-store - Продуктовый сервис")
                                 .version("1")
                 );
     }
