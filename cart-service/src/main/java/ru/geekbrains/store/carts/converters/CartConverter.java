@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import ru.geekbrains.store.api.CartDto;
 import ru.geekbrains.store.carts.model.Cart;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -14,9 +16,10 @@ public class CartConverter {
     private final CartItemConverter cartItemConverter;
 
     public CartDto entityToDto(Cart cart) {
-        CartDto cartDto = new CartDto();
-        cartDto.setItems(cart.getItems().stream().map(cartItemConverter::entityToDto).collect(Collectors.toList()));
-        cartDto.setTotalPrice(cart.getTotalPrice());
-        return cartDto;
+
+        return CartDto.builder()
+                .totalPrice(cart.getTotalPrice())
+                .items(cart.getItems().stream().map(cartItemConverter::entityToDto).collect(Collectors.toList()))
+                .build();
     }
 }

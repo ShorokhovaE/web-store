@@ -7,10 +7,11 @@ import ru.geekbrains.store.core.entities.Product;
 @Component
 public class ProductConverter {
     public ProductDto entityToDto(Product p) {
-        ProductDto productDto = new ProductDto();
-        productDto.setId(p.getId());
-        productDto.setTitle(p.getTitle());
-        productDto.setPrice(p.getPrice());
-        return productDto;
+
+        return ProductDto.builder()
+                .id(p.getId())
+                .title(p.getTitle())
+                .price(p.getPrice())
+                .build();
     }
 }

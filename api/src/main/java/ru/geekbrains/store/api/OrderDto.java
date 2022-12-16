@@ -1,9 +1,15 @@
 package ru.geekbrains.store.api;
 
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+
+@Data
+@Builder
 public class OrderDto {
 
     private Long id;
@@ -11,35 +17,4 @@ public class OrderDto {
     private BigDecimal totalPrice;
     private List<OrderItemDto> itemDtos;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public List<OrderItemDto> getItemDtos() {
-        return itemDtos;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setItemDtos(List<OrderItemDto> itemDtos) {
-        this.itemDtos = itemDtos;
-    }
 }
