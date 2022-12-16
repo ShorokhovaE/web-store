@@ -1,5 +1,8 @@
 package ru.geekbrains.store.api;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.List;
 
 public class PageDto<E> {

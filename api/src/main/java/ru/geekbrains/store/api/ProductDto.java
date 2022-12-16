@@ -2,9 +2,13 @@ package ru.geekbrains.store.api;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Data
+@Builder
 @Schema(description = "Модель продукта")
 public class ProductDto {
 
@@ -17,36 +21,4 @@ public class ProductDto {
     @Schema(description = "Цена продукта", required = true, example = "120.00")
     private BigDecimal price;
 
-    public ProductDto(Long id, String title, BigDecimal price) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-    }
-
-    public ProductDto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 }

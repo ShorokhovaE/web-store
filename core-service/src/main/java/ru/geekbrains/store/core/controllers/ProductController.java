@@ -71,7 +71,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ProductDto findById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
         return productService.findById(id)
-                .map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice()))
+                .map(p -> ProductDto.builder().id(p.getId()).title(p.getTitle()).price(p.getPrice()).build())
                 .orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));
 
     }
