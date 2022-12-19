@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.store.api.*;
 import ru.geekbrains.store.core.converters.ProductConverter;
 import ru.geekbrains.store.core.entities.Product;
+import ru.geekbrains.store.core.proxy.ProductProxy;
 import ru.geekbrains.store.core.services.ProductService;
 
 @RestController
@@ -23,6 +24,7 @@ import ru.geekbrains.store.core.services.ProductService;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductProxy productProxy;
     private final ProductConverter productConverter;
 
     @Operation(
@@ -46,7 +48,8 @@ public class ProductController {
             page = 1;
         }
         Specification<Product> spec = productService.createSpecByFilters(minPrice, maxPrice, title);
-        Page<ProductDto> jpaPage = productService.findAll(spec, page - 1).map(productConverter::entityToDto);
+
+        Page<ProductDto> jpaPage = productProxy.findAll(spec, page - 1).map(productConverter::entityToDto);
 
         PageDto<ProductDto> out = new PageDto<>();
         out.setPage(jpaPage.getNumber());
